@@ -6,7 +6,7 @@
 * [License](#license)
 
 ## Project Description
-This project is used to extract chinese text infromation from Taiwan university websites
+This project is used to extract Chinese text information from Taiwan university websites
 
 ## Installation
 

@@ -3,7 +3,7 @@ import jsonlines
 import re
 import os
 
-def txt_to_array(document,university_name):
+def create_jsonl(document,university_name):
     text = []
     extracted_text=[]
     f = open(document,'r',encoding='utf8')
@@ -35,4 +35,4 @@ def txt_to_array(document,university_name):
 for filename in os.listdir("./output"):       
     match =re.search(r"_(.*?)\.", filename)
     print(match)
-    txt_to_array(f'output/{filename}',match.group(1))
+    create_jsonl(f'output/{filename}',match.group(1))
