@@ -12,6 +12,7 @@ This project is used to extract Chinese text information from Taiwan university 
 
 clone this github repository with the commandline below
 ``````
+git clone https://github.com/YiHao990416/University_website_scrapper.git/
 ``````
 
 ## Usage
