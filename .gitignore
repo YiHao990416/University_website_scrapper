@@ -1,0 +1,7 @@
+#ignore All files in ANY directory named output
+*.txt
+*.jsonl
+
+# Does not ignore the requirements.txt file
+
+!requirements.txt
