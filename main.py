@@ -27,6 +27,7 @@ def main(json_file, depth, min_len, min_text):
         # Create empty set to store the links and soups extracted
         link_list = []
         soup_list = []
+        extracted_text = []
 
         for i in range(depth):
             link_list.append(set())
@@ -43,7 +44,9 @@ def main(json_file, depth, min_len, min_text):
 
                     link_list[i].update(link_scrapper(soup,URL_suffix, URL_suffix2))
                     print(f'link extraction layer: {i} done')
-                    soup_list[i].update(extract_soup(link_list[i], university_name, min_len))
+                    new_soup, new_extracted_text = extract_soup(link_list[i], university_name, min_len)
+                    soup_list[i].update(new_soup)
+                    extracted_text.extend(new_extracted_text)
                     print(f'soup extraction layer: {i} done')
 
                 else:
@@ -56,7 +59,9 @@ def main(json_file, depth, min_len, min_text):
                         link_list[i] = link_list[i]-link_list[i-j-1]
 
                     print(f'link extraction layer: {i} done')
-                    soup_list[i].update(extract_soup(link_list[i-1], university_name, min_len))
+                    new_soup, new_extracted_text = extract_soup(link_list[i], university_name, min_len)
+                    soup_list[i].update(new_soup)
+                    extracted_text.extend(new_extracted_text)
                     print(f'soup extraction layer: {i} done')
             
             # Output error to checkpoint/error.txt file    
@@ -65,13 +70,18 @@ def main(json_file, depth, min_len, min_text):
                 f.write(f'{university_name}\n')
                 f.close()
                 pass
-
+        # print extracted text to txt file
         # Write all the extracted link to checkpoint/university_name_links.txt
-        f = open(f"checkpoint/{university_name}_link.txt",'a',encoding= 'utf8')
+        f = open(f"checkpoint/{university_name}_link.txt",'w',encoding= 'utf8')
+        f2 = open(f"output/output_{university_name}.txt",'w',encoding='utf8')
+        for line in extracted_text:
+            f2.write(line)
+
         for link_set in link_list:
             for link in link_set:
                 f.write(f'{link}\n')
         f.close
+        f2.close
         print(f'Create university link done')
 
                 

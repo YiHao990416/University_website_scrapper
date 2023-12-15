@@ -14,6 +14,7 @@ cleaner.style = True
 
 def extract_soup(link_list, university_name, min_len):
     soup_list = set()
+    extracted_string = []
 
     for link in link_list:
         try: 
@@ -27,8 +28,9 @@ def extract_soup(link_list, university_name, min_len):
             soup.prettify
 
             # open a new file as "append" so that text from multiple layer of webpage can write to the same file
-            f = open(f"output/output_{university_name}.txt",'a',encoding='utf8')
-            f.write(f'\n關於{university_name}的資訊: {soup.title.string}\n\n')
+            # f = open(f"output/output_{university_name}.txt",'a',encoding='utf8')
+            # f.write(f'\n關於{university_name}的資訊: {soup.title.string}\n\n')
+            extracted_string.append(f'\n關於{university_name}的資訊: {soup.title.string}\n\n')
 
             # Add "|" at the beginning and the end of the text so that we can remove unwanted style and function 
             visible_text = soup.getText('|',strip = True)
@@ -47,13 +49,14 @@ def extract_soup(link_list, university_name, min_len):
                     string = re.sub(r'\b(?:\+\d{1,2}\s?)?(?:\(\d{1,4}\))?[ -]?\d{1,5}[ -]?\d{1,5}[ -]?\d{1,9}\b', "", string)
                     # only write sentence with length greater than min_len to the .txt file
                     if len(string)>=min_len:
-                        f.write(f'{string}\n')
+                        # f.write(f'{string}\n')
+                        extracted_string.append(f'{string}\n')
 
-            f.close()
+            # f.close()
         except:
             pass
     # Return the soup
-    return soup_list
+    return soup_list, extracted_string
 
 # [link scrapper is used to extract all the university webpage link from the extracted soup ]
 def link_scrapper(soup, URL_suffix, URL_suffix2):
