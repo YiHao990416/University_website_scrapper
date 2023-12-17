@@ -26,10 +26,6 @@ def extract_soup(link_list, university_name, min_len):
             
             # remove the unwanted style and function 
             soup.prettify
-
-            # open a new file as "append" so that text from multiple layer of webpage can write to the same file
-            # f = open(f"output/output_{university_name}.txt",'a',encoding='utf8')
-            # f.write(f'\n關於{university_name}的資訊: {soup.title.string}\n\n')
             extracted_string.append(f'\n關於{university_name}的資訊: {soup.title.string}\n\n')
 
             # Add "|" at the beginning and the end of the text so that we can remove unwanted style and function 
@@ -59,7 +55,7 @@ def extract_soup(link_list, university_name, min_len):
     return soup_list, extracted_string
 
 # [link scrapper is used to extract all the university webpage link from the extracted soup ]
-def link_scrapper(soup, URL_suffix, URL_suffix2):
+def link_scrapper(soup, URL_suffix, URL_suffix2, URL_suffix3):
     website = []
 
     # Retrieve all the link from the soup
@@ -82,7 +78,7 @@ def link_scrapper(soup, URL_suffix, URL_suffix2):
             link = current_link + website[i] 
 
         # Make sure only related link is extracted example: link with suffix = ncku.edu, link without the keywords "portal" or "login"
-        if re.match(r'^((http|https)://)',link) and re.match(r'^(?:(?!portal).)*$',link) and re.match(r'^(?:(?!login).)*$',link) and ((URL_suffix or URL_suffix2) in link):
+        if re.match(r'^((http|https)://)',link) and re.match(r'^(?:(?!portal).)*$',link) and re.match(r'^(?:(?!login).)*$',link) and ((URL_suffix or URL_suffix2 or URL_suffix3) in link):
             link_list.add(link)
 
     return link_list

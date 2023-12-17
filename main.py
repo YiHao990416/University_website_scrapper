@@ -23,6 +23,7 @@ def main(json_file, depth, min_len, min_text):
         university_name_eng = uni['abbrev']
         URL_suffix = f'{university_name_eng}.edu'
         URL_suffix2 = f'{university_name_eng}.org'
+        URL_suffix3 = f'{university_name_eng}.net'
         
         # Create empty set to store the links and soups extracted
         link_list = []
@@ -52,7 +53,7 @@ def main(json_file, depth, min_len, min_text):
                 else:
                     for soup in soup_list[i-1]:
 
-                        link_list[i].update(link_scrapper(soup, URL_suffix, URL_suffix2))
+                        link_list[i].update(link_scrapper(soup, URL_suffix, URL_suffix2, URL_suffix3))
 
                     # Compare the links in layer i with layer i-1 to remove repeated links
                     for j in range(i):
