@@ -27,7 +27,7 @@ def create_jsonl(document,university_name):
         for line in extracted_text:
             # if "".join(line[1:]) !="" or re.search('[a-zA-Z]', "".join(line[1:])) == False:
             if "".join(line[1:]) !="":
-                w.write({"title":line[0].replace('\n',''),"text":(''.join(line[1:])).replace('\n','')})
+                w.write({"title":line[0].replace('\n','').replace('\t',''),"text":(''.join(line[1:])).replace('\n','').replace('\t', '')})
 
     return extracted_text
 

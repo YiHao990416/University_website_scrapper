@@ -57,17 +57,14 @@ def extract_soup(link_list, university_name, min_len):
 # [link scrapper is used to extract all the university webpage link from the extracted soup ]
 def link_scrapper(soup, URL_suffix, URL_suffix2, URL_suffix3):
     website = []
-
     # Retrieve all the link from the soup
     for link in soup.find_all("a"):
         website.append(str(link.get('href')))
     
     link_list = set()
     current_link =''
-
     # Process the website to filter unwanted website
     for i in range(len(website)):
-
         # Join the main link to the sublink
         link=''
         if re.match(r'^((http|https)://)',website[i]): 
@@ -76,13 +73,10 @@ def link_scrapper(soup, URL_suffix, URL_suffix2, URL_suffix3):
         
         if re.match(r'^/',website[i]):
             link = current_link + website[i] 
-
         # Make sure only related link is extracted example: link with suffix = ncku.edu, link without the keywords "portal" or "login"
         if re.match(r'^((http|https)://)',link) and re.match(r'^(?:(?!portal).)*$',link) and re.match(r'^(?:(?!login).)*$',link) and ((URL_suffix or URL_suffix2 or URL_suffix3) in link):
             link_list.add(link)
-
     return link_list
-
 
 # [text_scrapper is used when we only need to extract text from a single webpage]
 def text_scrapper(link_list, university_name, university_name_eng,min_len, min_text):

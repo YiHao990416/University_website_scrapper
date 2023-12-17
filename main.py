@@ -43,7 +43,7 @@ def main(json_file, depth, min_len, min_text):
                     r = requests.get(URL)
                     soup = BeautifulSoup(r.content,'lxml')
 
-                    link_list[i].update(link_scrapper(soup,URL_suffix, URL_suffix2))
+                    link_list[i].update(link_scrapper(soup,URL_suffix, URL_suffix2, URL_suffix3))
                     print(f'link extraction layer: {i} done')
                     new_soup, new_extracted_text = extract_soup(link_list[i], university_name, min_len)
                     soup_list[i].update(new_soup)
@@ -53,7 +53,7 @@ def main(json_file, depth, min_len, min_text):
                 else:
                     for soup in soup_list[i-1]:
 
-                        link_list[i].update(link_scrapper(soup, URL_suffix, URL_suffix2, URL_suffix3))
+                        link_list[i].update(link_scrapper(soup, URL_suffix, URL_suffix2))
 
                     # Compare the links in layer i with layer i-1 to remove repeated links
                     for j in range(i):
