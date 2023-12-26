@@ -55,6 +55,11 @@ To convert the extracted .txt files into jsonl format, execute the tools.py
 ```
 run python tools.py
 ```
+To check which university_name.txt is absent in output folder
+
+```
+run python error.py
+```
 
 ## Dependencies
 
